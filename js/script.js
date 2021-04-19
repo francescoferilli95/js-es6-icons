@@ -128,12 +128,20 @@ const coloredIcons = colorIcons(icons, colors);
 // console.log(coloredIcons);
 printIcons(coloredIcons, container);
 
+// 3.
 
+// 3.A GENERATING OPTIONS ON TYPE
+    const select = document.querySelector('#type');
+    const types = getTypes(coloredIcons);
+    generateOptions(types, select);
 
+// 3.B FILTER ON CHANGE
+select.addEventListener('change', () => {
+    const selected = select.value;
 
-
-
-
+    const filteredIcons = filterIcons(coloredIcons, selected);
+    printIcons(filteredIcons, container);
+});
 
 
 
@@ -226,4 +234,40 @@ function getTypes(icons) {
     });
 
     return types;
+}
+
+/**
+ * 
+ *  GENERATE OPTIONS FOR FILTER
+ * 
+ */
+
+function generateOptions (types, select) {
+
+    // GENERATING OPTIONS
+    let options = '';
+    types.forEach( (type) => {
+        options += `<option value="${type}">${type}</option>`;
+    })
+
+    select.innerHTML += options;
+}
+
+/**
+ * 
+ *  FILTER ICON SET
+ * 
+ */
+
+function filterIcons (coloredIcons, selected) {
+
+    if(selected === 'all') {
+        return coloredIcons;
+    }
+
+    const filtered = coloredIcons.filter((icon) => {
+        return icon.type === selected;
+    }) 
+
+    return filtered;
 }
