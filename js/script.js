@@ -1,4 +1,4 @@
-/*********************************************************************************
+/*******************************************************************************
  * 
  * ICON DISPLAY
  * 
@@ -7,7 +7,7 @@
  *  2. PRINT TO SCREEN THE ICON COLORED SET.
  *  3. FILTER THE ICON COLORED SET.
  * 
-**********************************************************************************/
+********************************************************************************/
 
 // SET ICON 
 const icons = [
@@ -147,22 +147,11 @@ select.addEventListener('change', () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-/**********************************************************************************
+/*******************************************************************************
  * 
  *  FUNCTIONS
  * 
-***********************************************************************************/
+********************************************************************************/
 
 /**
  * 
@@ -226,7 +215,9 @@ function colorIcons(icons, colors) {
  */
 
 function getTypes(icons) {
+    // CREATING TYPES LIST
     const types = [];
+
     icons.forEach( (icon) =>{
         if(! types.includes(icon.type)) {
             types.push(icon.type)
@@ -246,6 +237,7 @@ function generateOptions (types, select) {
 
     // GENERATING OPTIONS
     let options = '';
+
     types.forEach( (type) => {
         options += `<option value="${type}">${type}</option>`;
     })
@@ -260,11 +252,12 @@ function generateOptions (types, select) {
  */
 
 function filterIcons (coloredIcons, selected) {
-
+    // RETURN "ALL"
     if(selected === 'all') {
         return coloredIcons;
     }
 
+    // FILTER BY TYPE
     const filtered = coloredIcons.filter((icon) => {
         return icon.type === selected;
     }) 
