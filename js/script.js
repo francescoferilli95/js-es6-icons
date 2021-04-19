@@ -109,17 +109,24 @@ const icons = [
     },
 ];
 
-
-
+// COLORS
+const colors = [
+    '#121629',
+    '#b8c1ec',
+    '#eebbc3'
+];
 
 // ICON CONTAINER
 const container = document.querySelector('.icons');
-console.log(container);
+// console.log(container);
 
 // 1.
-printIcons(icons, container);
+// printIcons(icons, container);
 
-
+// 2.
+const coloredIcons = colorIcons(icons, colors);
+// console.log(coloredIcons);
+printIcons(coloredIcons, container);
 
 
 
@@ -149,6 +156,12 @@ printIcons(icons, container);
  * 
 ***********************************************************************************/
 
+/**
+ * 
+ *  GENERATING MARKUP
+ * 
+ */
+
 function printIcons(icons, container) {
 
     // GENERATING MARKUP
@@ -158,18 +171,59 @@ function printIcons(icons, container) {
     icons.forEach( (icon) => {
 
         // DESTRUCTURING
-        const {family, prefix, name} = icon;
+        const {family, prefix, name, color} = icon;
         
         // WRITING MARKUP
         screen += `
         <div class="icon p-20">
-            <i class="${family} ${prefix}${name}" style="color: #333"></i>
+            <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
             <div class="title">${name}</div>
         </div>
         `;
     });
 
     // ADDING ICONS TO CONTAINER
-    console.log(screen);
+    // console.log(screen);
     container.innerHTML = screen;
+}
+
+/**
+ * 
+ *  RETURN COLOR ICONS COLLECTION BY TYPE
+ * 
+ */
+
+function colorIcons(icons, colors) {
+    // GET COLOR BY TYPE
+    const types = getTypes(icons);
+    // console.log(types);
+    // console.log(colors);
+
+    // ADDING COLORS TO ICONS SET
+    const coloredIcons = icons.map( (icon) => {
+        const indexType = types.indexOf(icon.type);
+        return {
+            ...icon,
+            color: colors[indexType],
+        }
+    })
+
+    return coloredIcons;
+}
+
+/**
+ * 
+ *  GET ICONS TYPE (UNIQUE)
+ * 
+ */
+
+function getTypes(icons) {
+    const types = [];
+    icons.forEach( (icon) =>{
+        if(! types.includes(icon.type)) {
+            types.push(icon.type)
+        }
+    });
+
+    return types;
 }
